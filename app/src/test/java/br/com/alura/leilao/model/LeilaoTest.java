@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class LeilaoTest {
 
     @Test
-    public void getDescricao() {
+    public void getDescricaoQuandoRecebeDescricaoDevolveDescricao() {
         // Criar caso de teste
         Leilao console = new Leilao("Console");
 
@@ -19,9 +19,7 @@ public class LeilaoTest {
     }
 
     @Test
-    public void getMaiorLance() {
-
-        // Verifica se devolve maior lance com apenas um lance
+    public void getMaiorLanceQuandoRecebeApenasUmLanceDevolveMaiorLance() {
         Leilao console = new Leilao("Console");
         console.propoe(new Lance(new Usuario("Robson"), 200.0));
 
@@ -31,18 +29,20 @@ public class LeilaoTest {
         // verifica a diferença entre os valores de ponto flutuante e se ele for maior,
         // significa que os valores são equivalentes
         assertEquals(200.0, maiorLanceDevolvidoDoConsole, 0.0001);
+    }
 
-
-        // Verifica se devolve maior lance com mais de um lance em ordem crescente
+    @Test
+    public void getMaiorLanceQuandoRecebeMaisDeUmLanceEmOrdemCrescenteDevolveMaiorLance() {
         Leilao computador = new Leilao("Computador");
         computador.propoe(new Lance(new Usuario("Robson"), 100.0));
         computador.propoe(new Lance(new Usuario("Fran"), 200.0));
 
         double maiorLanceDevolvidoDoComputador = computador.getMaiorLance();
         assertEquals(200.0, maiorLanceDevolvidoDoComputador, 0.0001);
+    }
 
-
-        // Verifica se devolve maior lance com mais de um lance em ordem decrescente
+    @Test
+    public void getMaiorLanceQuandoRecebeMaisDeUmLanceEmOrdemDecrescenteDevolveMaiorLance() {
         Leilao carro = new Leilao("Carro");
         carro.propoe(new Lance(new Usuario("Robson"), 10000.0));
         carro.propoe(new Lance(new Usuario("Fran"), 9000.0));
