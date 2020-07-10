@@ -20,14 +20,34 @@ public class LeilaoTest {
 
     @Test
     public void getMaiorLance() {
+
+        // Verifica se devolve maior lance com apenas um lance
         Leilao console = new Leilao("Console");
         console.propoe(new Lance(new Usuario("Robson"), 200.0));
 
-        double maiorLanceDevolvido = console.getMaiorLance();
+        double maiorLanceDevolvidoDoConsole = console.getMaiorLance();
 
         // delta
         // verifica a diferença entre os valores de ponto flutuante e se ele for maior,
         // significa que os valores são equivalentes
-        assertEquals(200.0, maiorLanceDevolvido, 0.0001);
+        assertEquals(200.0, maiorLanceDevolvidoDoConsole, 0.0001);
+
+
+        // Verifica se devolve maior lance com mais de um lance em ordem crescente
+        Leilao computador = new Leilao("Computador");
+        computador.propoe(new Lance(new Usuario("Robson"), 100.0));
+        computador.propoe(new Lance(new Usuario("Fran"), 200.0));
+
+        double maiorLanceDevolvidoDoComputador = computador.getMaiorLance();
+        assertEquals(200.0, maiorLanceDevolvidoDoComputador, 0.0001);
+
+
+        // Verifica se devolve maior lance com mais de um lance em ordem decrescente
+        Leilao carro = new Leilao("Carro");
+        carro.propoe(new Lance(new Usuario("Robson"), 10000.0));
+        carro.propoe(new Lance(new Usuario("Fran"), 9000.0));
+
+        double maiorLanceDevolvidoDoCarro = carro.getMaiorLance();
+        assertEquals(10000.0, maiorLanceDevolvidoDoCarro, 0.0001);
     }
 }
