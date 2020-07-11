@@ -151,7 +151,7 @@ public class LeilaoTest {
         assertEquals(500.0, tresMaioresLancesDevolvidosParaQuatroLances.get(1).getValor(), DELTA);
         assertEquals(400.0, tresMaioresLancesDevolvidosParaQuatroLances.get(2).getValor(), DELTA);
 
-        
+
         CONSOLE.propoe(new Lance(ROBSON, 700.0));
         List<Lance> tresMaioresLancesDevolvidosParaCincoLances = CONSOLE.tresMaioresLances();
         assertEquals(3, tresMaioresLancesDevolvidosParaCincoLances.size());
