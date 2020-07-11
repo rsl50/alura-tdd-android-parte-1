@@ -51,6 +51,7 @@ public class Leilao implements Serializable {
     }
 
     public List<Lance> tresMaioresLances() {
-        return lances.subList(0, 3);
+
+        return lances.subList(0, lances.size());
     }
 }
