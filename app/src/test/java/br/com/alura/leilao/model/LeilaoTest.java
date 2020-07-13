@@ -160,52 +160,50 @@ public class LeilaoTest {
     }
 
     @Test
-    public void naoDeve_AdicionarLance_QuandoForMenorQueMaiorLance() {
+    public void deve_LancarException_QuandoReceberLanceMenorQueMaiorLance() {
         CONSOLE.propoe(new Lance(ROBSON, 500.0));
 
         try {
             CONSOLE.propoe(new Lance(new Usuario("Fran"), 400.0));
             fail("Era esperada uma RuntimeException");
         } catch (RuntimeException exception){
-
+            assertEquals("Lance foi menor que maior lance", exception.getMessage());
         }
-
-        //int quantidadeLancesDevolvida = CONSOLE.quantidadeLances();
-        //assertEquals(1, quantidadeLancesDevolvida);
     }
 
 
     @Test
-    public void naoDeve_AdicionarLance_QuandoForOMesmoUsuarioDoUltimoLance() {
+    public void deve_LancarException_QuandoForOMesmoUsuarioDoUltimoLance() {
         CONSOLE.propoe(new Lance(ROBSON, 500.0));
-        CONSOLE.propoe(new Lance(ROBSON, 600.0));
-
-        int quantidadeLancesDevolvida = CONSOLE.quantidadeLances();
-
-        assertEquals(1, quantidadeLancesDevolvida);
+        try {
+            CONSOLE.propoe(new Lance(ROBSON, 600.0));
+            fail("Era esperada uma RuntimeException");
+        } catch (RuntimeException exception) {
+            assertEquals("Mesmo usuario do ultimo lance", exception.getMessage());
+        }
     }
 
     @Test
-    public void naoDeve_AdicionarLance_QuandoUsuarioDerCincoLances() {
-        final Usuario FRAN = new Usuario("Fran");
+    public void deve_LancarException_QuandoUsuarioDerCincoLances() {
+        try {
+            final Usuario FRAN = new Usuario("Fran");
+            final Leilao console = new LeilaoBuilder("Console")
+                    .lance(ROBSON, 100.0)
+                    .lance(FRAN, 200.0)
+                    .lance(ROBSON, 300.0)
+                    .lance(FRAN, 400.0)
+                    .lance(ROBSON, 500.0)
+                    .lance(FRAN, 600.0)
+                    .lance(ROBSON, 700.0)
+                    .lance(FRAN, 800.0)
+                    .lance(ROBSON, 900.0)
+                    .lance(FRAN, 1000.0)
+                    .lance(ROBSON, 11000.0)
+                    .build();
 
-        final Leilao console = new LeilaoBuilder("Console")
-                .lance(ROBSON, 100.0)
-                .lance(FRAN, 200.0)
-                .lance(ROBSON, 300.0)
-                .lance(FRAN, 400.0)
-                .lance(ROBSON, 500.0)
-                .lance(FRAN, 600.0)
-                .lance(ROBSON, 700.0)
-                .lance(FRAN, 800.0)
-                .lance(ROBSON, 900.0)
-                .lance(FRAN, 1000.0)
-                .lance(ROBSON, 1100.0)
-                .lance(FRAN, 1200.0)
-                .build();
-
-        int quantidadeLancesDevolvida = console.quantidadeLances();
-
-        assertEquals(10, quantidadeLancesDevolvida);
+            fail();
+        } catch (RuntimeException exception) {
+            assertEquals("Usuario ja deu cinco lances", exception.getMessage());
+        }
     }
 }
