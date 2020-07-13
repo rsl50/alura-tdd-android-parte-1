@@ -1,11 +1,10 @@
 package br.com.alura.leilao.model;
 
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class LeilaoTest {
 
