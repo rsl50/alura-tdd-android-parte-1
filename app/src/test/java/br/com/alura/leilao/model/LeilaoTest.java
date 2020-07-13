@@ -18,7 +18,7 @@ public class LeilaoTest {
     //[deve]_[resultado esperado]_[estado de teste]
 
     @Test
-    public void deve_DevolveDescricao_QuandoRecebeDescricao_() {
+    public void deve_DevolveDescricao_QuandoRecebeDescricao() {
         // Executar ação esperada
         String descricaoDevolvida = CONSOLE.getDescricao();
 
@@ -47,15 +47,6 @@ public class LeilaoTest {
         assertEquals(200.0, maiorLanceDevolvido, DELTA);
     }
 
-    @Test
-    public void deve_DevolveMaiorLance_QuandoRecebeMaisDeUmLanceEmOrdemDecrescente() {
-        CONSOLE.propoe(new Lance(ROBSON, 10000.0));
-        CONSOLE.propoe(new Lance(new Usuario("Fran"), 9000.0));
-
-        double maiorLanceDevolvido = CONSOLE.getMaiorLance();
-        assertEquals(10000.0, maiorLanceDevolvido, DELTA);
-    }
-
 
 
     @Test
@@ -78,17 +69,6 @@ public class LeilaoTest {
         double menorLanceDevolvido = CONSOLE.getMenorLance();
         assertEquals(100.0, menorLanceDevolvido, DELTA);
     }
-
-    @Test
-    public void deve_DevolveMenorLance_QuandoRecebeMaisDeUmLanceEmOrdemDecrescente() {
-        CONSOLE.propoe(new Lance(ROBSON, 10000.0));
-        CONSOLE.propoe(new Lance(new Usuario("Fran"), 9000.0));
-
-        double menorLanceDevolvido = CONSOLE.getMenorLance();
-        assertEquals(9000.0, menorLanceDevolvido, DELTA);
-    }
-
-
 
     @Test
     public void deve_DevolverTresMaioresLances_QuandoRecebeExatosTresLances() {
@@ -176,4 +156,13 @@ public class LeilaoTest {
         assertEquals(0, menorLanceDevolvido, DELTA);
     }
 
+    @Test
+    public void naoDeve_AdicionarLance_QuandoForMenorQueMaiorLance() {
+        CONSOLE.propoe(new Lance(ROBSON, 500.0));
+        CONSOLE.propoe(new Lance(new Usuario("Fran"), 400.0));
+
+        int quantidadeLancesDevolvida = CONSOLE.guantidadeLances();
+
+        assertEquals(1, quantidadeLancesDevolvida);
+    }
 }
