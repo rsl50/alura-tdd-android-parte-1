@@ -122,7 +122,7 @@ public class Leilao implements Serializable {
         return lances.subList(0, quantidadeMaximaLances);
     }
 
-    public int guantidadeLances() {
+    public int quantidadeLances() {
         return lances.size();
     }
 }

@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.util.List;
 
+import br.com.alura.leilao.builder.LeilaoBuilder;
+
 import static org.junit.Assert.assertEquals;
 
 public class LeilaoTest {
@@ -160,7 +162,7 @@ public class LeilaoTest {
         CONSOLE.propoe(new Lance(ROBSON, 500.0));
         CONSOLE.propoe(new Lance(new Usuario("Fran"), 400.0));
 
-        int quantidadeLancesDevolvida = CONSOLE.guantidadeLances();
+        int quantidadeLancesDevolvida = CONSOLE.quantidadeLances();
 
         assertEquals(1, quantidadeLancesDevolvida);
     }
@@ -171,34 +173,31 @@ public class LeilaoTest {
         CONSOLE.propoe(new Lance(ROBSON, 500.0));
         CONSOLE.propoe(new Lance(ROBSON, 600.0));
 
-        int quantidadeLancesDevolvida = CONSOLE.guantidadeLances();
+        int quantidadeLancesDevolvida = CONSOLE.quantidadeLances();
 
         assertEquals(1, quantidadeLancesDevolvida);
     }
 
     @Test
     public void naoDeve_AdicionarLance_QuandoUsuarioDerCincoLances() {
-        CONSOLE.propoe(new Lance(ROBSON, 100.0));
-
         final Usuario FRAN = new Usuario("Fran");
-        CONSOLE.propoe(new Lance(FRAN, 200.0));
 
-        CONSOLE.propoe(new Lance(ROBSON, 300.0));
-        CONSOLE.propoe(new Lance(FRAN, 400.0));
+        final Leilao console = new LeilaoBuilder("Console")
+                .lance(ROBSON, 100.0)
+                .lance(FRAN, 200.0)
+                .lance(ROBSON, 300.0)
+                .lance(FRAN, 400.0)
+                .lance(ROBSON, 500.0)
+                .lance(FRAN, 600.0)
+                .lance(ROBSON, 700.0)
+                .lance(FRAN, 800.0)
+                .lance(ROBSON, 900.0)
+                .lance(FRAN, 1000.0)
+                .lance(ROBSON, 1100.0)
+                .lance(FRAN, 1200.0)
+                .build();
 
-        CONSOLE.propoe(new Lance(ROBSON, 500.0));
-        CONSOLE.propoe(new Lance(FRAN, 600.0));
-
-        CONSOLE.propoe(new Lance(ROBSON, 700.0));
-        CONSOLE.propoe(new Lance(FRAN, 800.0));
-
-        CONSOLE.propoe(new Lance(ROBSON, 900.0));
-        CONSOLE.propoe(new Lance(FRAN, 1000.0));
-
-        CONSOLE.propoe(new Lance(ROBSON, 1100.0));
-        CONSOLE.propoe(new Lance(FRAN, 1200.0));
-
-        int quantidadeLancesDevolvida = CONSOLE.guantidadeLances();
+        int quantidadeLancesDevolvida = console.quantidadeLances();
 
         assertEquals(10, quantidadeLancesDevolvida);
     }
