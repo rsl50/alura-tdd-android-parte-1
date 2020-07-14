@@ -21,24 +21,24 @@ public class MoedaUtilTest {
     @Test
     public void deve_DevolveMaiorLanceNoFormatoBrasileiro_QuandoRecebeValor() {
         String valorFormatadoDevolvido = formataParaBrasileiro(CONSOLE.getMaiorLance());
-        assertThat(valorFormatadoDevolvido, is(equalTo("R$200,00")));
+        assertThat(valorFormatadoDevolvido, is(equalTo("R$ 200,00")));
     }
 
     @Test
     public void deve_DevolveMenorLanceNoFormatoBrasileiro_QuandoRecebeValor() {
         String valorFormatadoDevolvido = formataParaBrasileiro(CONSOLE.getMenorLance());
-        assertThat(valorFormatadoDevolvido, is(equalTo("R$100,00")));
+        assertThat(valorFormatadoDevolvido, is(equalTo("R$ 100,00")));
     }
 
     @Test
     public void deve_DevolveLanceNoFormatoBrasileiro_QuandoRecebeValorZero() {
         String valorFormatadoDevolvido = formataParaBrasileiro(0.0);
-        assertThat(valorFormatadoDevolvido, is(equalTo("R$0,00")));
+        assertThat(valorFormatadoDevolvido, is(equalTo("R$ 0,00")));
     }
 
     @Test
     public void deve_DevolveLanceNoFormatoBrasileiro_QuandoRecebeValorNegativo() {
         String valorFormatadoDevolvido = formataParaBrasileiro(-100.0);
-        assertThat(valorFormatadoDevolvido, is(equalTo("R$-100,00")));
+        assertThat(valorFormatadoDevolvido, is(equalTo("R$- 100,00")));
     }
 }

@@ -10,6 +10,6 @@ public class MoedaUtil {
 
     public static String formataParaBrasileiro(double valor) {
         NumberFormat moeda = DecimalFormat.getCurrencyInstance(new Locale("pt", "BR"));
-        return moeda.format(valor).replace(" ", "").replace("-R$", "R$-");
+        return moeda.format(valor).replace("-R$", "R$-");
     }
 }
