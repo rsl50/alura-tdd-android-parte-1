@@ -1,8 +1,7 @@
 package br.com.alura.leilao.model;
 
-import org.junit.Rule;
+import org.hamcrest.Matchers;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import java.util.List;
 
@@ -11,18 +10,19 @@ import br.com.alura.leilao.exception.LanceMenorQueUltimoLanceException;
 import br.com.alura.leilao.exception.LanceSeguidoDoMesmoUsuarioException;
 import br.com.alura.leilao.exception.UsuarioJaDeuCincoLancesException;
 
-
-import static junit.framework.TestCase.fail;
+import static org.hamcrest.Matchers.both;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.number.IsCloseTo.closeTo;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 public class LeilaoTest {
 
     public static final double DELTA = 0.0001;
     private final Leilao CONSOLE = new Leilao("Console");
     private final Usuario ROBSON = new Usuario("Robson");
-
-    @Rule
-    public ExpectedException exception = ExpectedException.none();
 
     // regras para nomear testes
     //[nome do método]_[estado de teste]_[resultado esperado]
@@ -34,7 +34,7 @@ public class LeilaoTest {
         String descricaoDevolvida = CONSOLE.getDescricao();
 
         // Testar resultado esperado
-        assertEquals("Console", descricaoDevolvida);
+        assertThat(descricaoDevolvida, is(equalTo("Console")));
     }
 
     @Test
@@ -46,7 +46,7 @@ public class LeilaoTest {
         // delta
         // verifica a diferença entre os valores de ponto flutuante e se ele for maior,
         // significa que os valores são equivalentes
-        assertEquals(200.0, maiorLanceDevolvido, DELTA);
+        assertThat(maiorLanceDevolvido, closeTo(200.0, DELTA));
     }
 
     @Test
@@ -89,11 +89,26 @@ public class LeilaoTest {
 
         List<Lance> tresMaioresLancesDevolvidos = CONSOLE.tresMaioresLances();
 
-        assertEquals(3, tresMaioresLancesDevolvidos.size());
+        //assertEquals(3, tresMaioresLancesDevolvidos.size());
+        //assertThat(tresMaioresLancesDevolvidos, hasSize(equalTo(3)));
 
-        assertEquals(400.0, tresMaioresLancesDevolvidos.get(0).getValor(), DELTA);
-        assertEquals(300.0, tresMaioresLancesDevolvidos.get(1).getValor(), DELTA);
-        assertEquals(200.0, tresMaioresLancesDevolvidos.get(2).getValor(), DELTA);
+        //assertEquals(400.0, tresMaioresLancesDevolvidos.get(0).getValor(), DELTA);
+        //assertThat(tresMaioresLancesDevolvidos, hasItem(new Lance(ROBSON, 400.0)));
+
+        //assertEquals(300.0, tresMaioresLancesDevolvidos.get(1).getValor(), DELTA);
+        //assertEquals(200.0, tresMaioresLancesDevolvidos.get(2).getValor(), DELTA);
+
+        //assertThat(tresMaioresLancesDevolvidos, contains(
+                //new Lance(ROBSON, 400.0),
+                //new Lance(new Usuario("Fran"), 300.0),
+                //new Lance(ROBSON, 200.0)));
+
+        assertThat(tresMaioresLancesDevolvidos,
+                both(Matchers.<Lance>hasSize(3))
+                .and(contains(
+                        new Lance(ROBSON, 400.0),
+                        new Lance(new Usuario("Fran"), 300.0),
+                        new Lance(ROBSON, 200.0))));
     }
 
 
