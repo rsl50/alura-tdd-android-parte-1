@@ -11,6 +11,8 @@ import br.com.alura.leilao.R;
 import br.com.alura.leilao.model.Lance;
 import br.com.alura.leilao.model.Leilao;
 
+import static br.com.alura.leilao.util.MoedaUtil.formataParaBrasileiro;
+
 public class LancesLeilaoActivity extends AppCompatActivity {
 
     @Override
@@ -22,15 +24,17 @@ public class LancesLeilaoActivity extends AppCompatActivity {
             Leilao leilao = (Leilao) dadosRecebidos.getSerializableExtra("leilao");
             TextView descricao = findViewById(R.id.lances_leilao_descricao);
             descricao.setText(leilao.getDescricao());
+
             TextView maiorLance = findViewById(R.id.lances_leilao_maior_lance);
-            maiorLance.setText(String.valueOf(leilao.getMaiorLance()));
+            maiorLance.setText(formataParaBrasileiro(leilao.getMaiorLance()));
+
             TextView menorLance = findViewById(R.id.lances_leilao_menor_lance);
-            menorLance.setText(String.valueOf(leilao.getMenorLance()));
+            menorLance.setText(formataParaBrasileiro(leilao.getMenorLance()));
 
             TextView maioresLances = findViewById(R.id.lances_leilao_maiores_lances);
             StringBuilder sb = new StringBuilder();
             for (Lance lance: leilao.tresMaioresLances()) {
-                sb.append(lance.getValor() + "\n");
+                sb.append(formataParaBrasileiro(lance.getValor()) + "\n");
             }
             String maioresLancesEmTexto = sb.toString();
             maioresLances.setText(maioresLancesEmTexto);
