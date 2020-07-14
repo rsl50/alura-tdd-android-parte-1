@@ -1,7 +1,5 @@
 package br.com.alura.leilao.util;
 
-import android.util.Log;
-
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Locale;
